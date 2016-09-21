@@ -52,6 +52,7 @@ func Calcular(t *Arbol) int {
 }
 
 func main(){
+  fmt.Println("agrego esto solo para probar las ramas en github")
   t1:= &Arbol{ &Arbol{&Arbol{nil,"5",nil}, "-", &Arbol{nil,"2",nil} }, "+", &Arbol{&Arbol{nil,"10",nil}, "*",&Arbol{nil,"3",nil} } }
   fmt.Print("\n")
   RecorrerInorden(t1)
