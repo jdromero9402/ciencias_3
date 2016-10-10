@@ -90,7 +90,7 @@ func Armar_arbol(arreglo []string) *Arbol {
         pila.Push(&Arbol{nil,elemento,nil})
         cont++
       }else{
-        fmt.Println("** ERROR ** Es un arbol binario no puede ingresar 3 numeros seguidos")
+        fmt.Println("** ERROR ** Es un arbol binario no puede ingresar mas de dos numeros seguidos")
         return Arbolf
       }
       /*else
@@ -98,11 +98,13 @@ func Armar_arbol(arreglo []string) *Arbol {
       */
     }else{
       //if pila.count > 0 && pila.count%2 ==0
-      cont=0
-        if pila.count > 0 && cont == 2{
+      fmt.Println(cont)
+
+        if pila.count > 0 && cont == 2 || cont==0{
         t1:=pila.Pop()
         t2:=pila.Pop()
-        pila.Push(&Arbol{t2,elemento,t1})
+          pila.Push(&Arbol{t2,elemento,t1})
+          cont=0
         //Arbolf= &Arbol{t1,elemento,t2}
       }else{
         fmt.Println("** ERROR ** Posición",i,": Ingresó",elemento,"sin elementos suficiente para operar")
@@ -122,7 +124,7 @@ func Armar_arbol(arreglo []string) *Arbol {
 }
 
 func main() {
-  entrada:= "52+2--"
+  entrada:= "52+1-+"
   cadena:=strings.Split(entrada, "")
   fmt.Println("Cadena inicial","\t",cadena)
   arbolito := Armar_arbol(cadena)
