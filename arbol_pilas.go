@@ -1,9 +1,17 @@
+/*
+Arbol binario con pilas
+Ana María Nates
+Jesús Romero
+*/
+
 package main
 
 import (
   "fmt"
   "strings"
   "strconv"
+  "bufio"
+  "os"
 )
 
 
@@ -24,6 +32,7 @@ func Calcular(t *Arbol) int {
     if err == nil{
       return num
     }
+
   }
   switch t.Valor{
     case "+": return Calcular(t.Izquierda)+Calcular(t.Derecha)
@@ -80,7 +89,7 @@ func Armar_arbol(arreglo []string) *Arbol {
   pila := NewStack()
   Arbolf:= NewArbolVacio()
   cont := 0
-  for i := 0;i < len(arreglo); i++{
+  for i := 0;i < len(arreglo)-2; i++{
     elemento:=arreglo[i]
     _,err := strconv.Atoi(elemento)
 
@@ -98,8 +107,6 @@ func Armar_arbol(arreglo []string) *Arbol {
       */
     }else{
       //if pila.count > 0 && pila.count%2 ==0
-      fmt.Println(cont)
-
         if pila.count > 0 && cont == 2 || cont==0{
         t1:=pila.Pop()
         t2:=pila.Pop()
@@ -122,12 +129,15 @@ func Armar_arbol(arreglo []string) *Arbol {
 
 
 }
-
+  
 func main() {
-  entrada:= "52+1-+"
+  reader := bufio.NewReader(os.Stdin)
+  fmt.Print("Ingrese la sentencia: ")
+  entrada, _ := reader.ReadString('\n')
+  //entrada:= "52+1-+"
   cadena:=strings.Split(entrada, "")
   fmt.Println("Cadena inicial","\t",cadena)
-  arbolito := Armar_arbol(cadena)
+  arbolito := Armar_arbol(cadena) 
   if arbolito.Valor !="" {
     fmt.Print("Resultado ","\t")
     RecorrerInorden(arbolito)
