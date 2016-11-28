@@ -27,9 +27,9 @@ func NewArbolVacio() *Arbol{
   return &Arbol{nil,"",nil}
 }
 
-func Calcular(t *Arbol) int {
+func Calcular(t *Arbol) float64 {
   if t.Izquierda == nil && t.Derecha== nil{
-    num,err := strconv.Atoi(t.Valor)
+    num,err := strconv.ParseFloat(t.Valor,64)
     if err == nil{
       return num
     }
@@ -92,7 +92,7 @@ func Armar_arbol(arreglo []string) *Arbol {
   cont := 0
   for i := 0;i < len(arreglo); i++{
     elemento:=arreglo[i]
-    _,err := strconv.Atoi(elemento)
+    _,err := strconv.ParseFloat(elemento,64)
 
     if err == nil{
       //if
@@ -145,7 +145,7 @@ func leerCadenas() (map[string][]string, []string, []string, []string, []string,
     e,_ := reader.ReadString('\n')
     if strings.Contains(e,"FIN") {
       break
-    } else if strings.Contains(e,": =") {
+    } else if strings.Contains(e,":=") {
       cad:=strings.Split(e," ")
     //  fmt.Println("cad:", cad)
     tiposVaux,opsAux,varAux,numsAux:= tiposVariables(cad)
@@ -154,9 +154,9 @@ func leerCadenas() (map[string][]string, []string, []string, []string, []string,
     ops = append(ops,opsAux...)
     vars = append(vars,varAux...)
     nums = append(nums,numsAux...)
-    v:=cad[len(cad)-3]
+    v:=cad[len(cad)-2]
     fmt.Println("variable:", v)
-    mapa[v] = cad[:len(cad)-3]
+    mapa[v] = cad[:len(cad)-2]
     //cad = cad[:len(cad)-3]
       cad_final = cad[:len(cad)] //Quitar el enter
     }
@@ -174,7 +174,7 @@ func modificarArreglo(arr map[string][]string, final []string) []string{
 for cont != tamaño {
   var newArr []string
   tam := len(final)
-    for i := 0;i < tam-3;i++{
+    for i := 0;i < tam-2;i++{
       _,ver := arr[final[i]]
       if !ver{
         newArr = append(newArr, final[i])
@@ -187,9 +187,9 @@ for cont != tamaño {
     }
     tam2 := len(newArr)
     cont = 0
-    for j:=0;j<tam2-3;j++{
+    for j:=0;j<tam2-2;j++{
       elemento := newArr[j]
-      _,err := strconv.Atoi(elemento)
+      _,err := strconv.ParseFloat(elemento,64)
       if err != nil{
           if elemento=="+" || elemento=="-" || elemento=="*" || elemento=="/"{
             cont++
@@ -198,7 +198,7 @@ for cont != tamaño {
         cont++
       }
     }
-    tamaño = len(newArr)-3
+    tamaño = len(newArr)-2
     final = newArr
     newArr2 = newArr
     //fmt.Println(cont, newArr)
@@ -218,7 +218,7 @@ func tiposVariables(arreglo []string) ([]string,[]string,[]string,[]string){
     elemento := arreglo[i]
     _,err := strconv.ParseFloat(elemento,64)
     if err != nil{
-      if elemento=="+" || elemento=="-" || elemento=="*" || elemento=="/" || elemento==":" || elemento=="=\n"{
+      if elemento=="+" || elemento=="-" || elemento=="*" || elemento=="/" || elemento==":=\n"{
         operadores = append(operadores,elemento)
         res = append(res,elemento+"-> OP")
         // tipos = append(tipos, "OP")
