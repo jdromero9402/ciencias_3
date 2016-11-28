@@ -1,5 +1,5 @@
 /*
-Arbol binario con pilas
+
 Ana María Nates
 Jesús Romero
 */
@@ -216,7 +216,7 @@ func tiposVariables(arreglo []string) ([]string,[]string,[]string,[]string){
   var res []string
   for i:=0;i < len(arreglo);i++{
     elemento := arreglo[i]
-    _,err := strconv.Atoi(elemento)
+    _,err := strconv.ParseFloat(elemento,64)
     if err != nil{
       if elemento=="+" || elemento=="-" || elemento=="*" || elemento=="/" || elemento==":" || elemento=="=\n"{
         operadores = append(operadores,elemento)
@@ -281,14 +281,13 @@ func main() {
   mapa,cadena,tiposV,_,vars,nums := leerCadenas()
   //fmt.Println(mapa,cadena)
   newCadena := modificarArreglo(mapa,cadena)
-  fmt.Println(newCadena)
   fmt.Println("Tabla caracteres")
   imprimirArr(tiposV)
   err,flag := errores(vars,nums)
-  fmt.Println(flag)
   if !flag{
     arbolito := Armar_arbol(newCadena)
     if arbolito.Valor !="" {
+      fmt.Println(newCadena)
       fmt.Print("Resultado ","\t")
       RecorrerInorden(arbolito)
       fmt.Println("=",Calcular(arbolito))
