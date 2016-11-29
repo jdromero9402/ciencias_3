@@ -136,7 +136,7 @@ func leerCadenas() (map[string][]string, []string, []string, []string, []string,
   reader := bufio.NewReader(os.Stdin)
   mapa := make(map[string][]string)
   var cad_final []string
-  fmt.Print("Ingrese una sentencia por linea.\n Separe los terminos con un espacio: '12 3 + Y : ='\n Termine con FIN:\n")
+  fmt.Print("Ingrese una sentencia por linea.\n Separe los terminos con un espacio: '12 3 + Y :='\n Termine con FIN:\n")
   var tiposV []string
   var ops []string
   var vars []string
@@ -188,20 +188,25 @@ for cont != tamaño {
     tam2 := len(newArr)
     cont = 0
     for j:=0;j<tam2-2;j++{
-      elemento := newArr[j]
+    //fmt.Println(tam2)
+      /*elemento := newArr[j]
       _,err := strconv.ParseFloat(elemento,64)
       if err != nil{
           if elemento=="+" || elemento=="-" || elemento=="*" || elemento=="/"{
             cont++
+          }else{
+            cont++
           }
       }else{
         cont++
-      }
+      }*/
+      cont++
     }
     tamaño = len(newArr)-2
     final = newArr
     newArr2 = newArr
     //fmt.Println(cont, newArr)
+    //fmt.Println(arr,final)
   }
   return newArr2
 }
@@ -253,6 +258,7 @@ func imprimirArr(arr []string){
     }
 }
 
+//Evalua caracteres y reconoce si hay decimales o caracteres invalidos
 func errores(variables []string,numeros []string)([]string,bool){
   var mensajes []string
   var vars, _ = regexp.Compile("^[a-zA-Z_][a-zA-Z0-9_]*$")
